@@ -4,6 +4,7 @@ using General.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace General.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220222031247_AddProduct_Inventory_Category_DiscountToDatabase")]
+    partial class AddProduct_Inventory_Category_DiscountToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,63 +103,6 @@ namespace General.DataAccess.Migrations
                     b.ToTable("AdminTypes");
                 });
 
-            modelBuilder.Entity("General.Models.Cart", b =>
-                {
-                    b.Property<int>("CartID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartID"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("CartID");
-
-                    b.HasIndex("UserID")
-                        .IsUnique();
-
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("General.Models.CartItem", b =>
-                {
-                    b.Property<int>("CartItemID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartItemID"), 1L, 1);
-
-                    b.Property<int>("CartID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("CartItemID");
-
-                    b.HasIndex("CartID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("CartItems");
-                });
-
             modelBuilder.Entity("General.Models.City", b =>
                 {
                     b.Property<string>("CityID")
@@ -190,65 +135,6 @@ namespace General.DataAccess.Migrations
                     b.HasIndex("CityID");
 
                     b.ToTable("Districts");
-                });
-
-            modelBuilder.Entity("General.Models.Order", b =>
-                {
-                    b.Property<int>("OrderID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("Total")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("General.Models.OrderItem", b =>
-                {
-                    b.Property<int>("OrderItemID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItemID"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("OrderItemID");
-
-                    b.HasIndex("OrderID");
-
-                    b.HasIndex("ProductID");
-
-                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("General.Models.Product", b =>
@@ -328,7 +214,7 @@ namespace General.DataAccess.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("ProductCategories");
+                    b.ToTable("productCategories");
                 });
 
             modelBuilder.Entity("General.Models.ProductDiscount", b =>
@@ -521,36 +407,6 @@ namespace General.DataAccess.Migrations
                     b.Navigation("AdminType");
                 });
 
-            modelBuilder.Entity("General.Models.Cart", b =>
-                {
-                    b.HasOne("General.Models.User", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("General.Models.Cart", "UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("General.Models.CartItem", b =>
-                {
-                    b.HasOne("General.Models.Cart", "Cart")
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("General.Models.Product", "Product")
-                        .WithMany("CartItems")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("General.Models.District", b =>
                 {
                     b.HasOne("General.Models.City", "City")
@@ -560,36 +416,6 @@ namespace General.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
-                });
-
-            modelBuilder.Entity("General.Models.Order", b =>
-                {
-                    b.HasOne("General.Models.User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("General.Models.OrderItem", b =>
-                {
-                    b.HasOne("General.Models.Order", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("General.Models.Product", "Product")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("General.Models.Product", b =>
@@ -673,11 +499,6 @@ namespace General.DataAccess.Migrations
                     b.Navigation("Admins");
                 });
 
-            modelBuilder.Entity("General.Models.Cart", b =>
-                {
-                    b.Navigation("CartItems");
-                });
-
             modelBuilder.Entity("General.Models.City", b =>
                 {
                     b.Navigation("UserAddresses");
@@ -688,17 +509,8 @@ namespace General.DataAccess.Migrations
                     b.Navigation("UserAddresses");
                 });
 
-            modelBuilder.Entity("General.Models.Order", b =>
-                {
-                    b.Navigation("OrderItems");
-                });
-
             modelBuilder.Entity("General.Models.Product", b =>
                 {
-                    b.Navigation("CartItems");
-
-                    b.Navigation("OrderItems");
-
                     b.Navigation("ProductInventories");
                 });
 
@@ -714,11 +526,6 @@ namespace General.DataAccess.Migrations
 
             modelBuilder.Entity("General.Models.User", b =>
                 {
-                    b.Navigation("Cart")
-                        .IsRequired();
-
-                    b.Navigation("Orders");
-
                     b.Navigation("UserAddresses");
                 });
 

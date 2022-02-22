@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace General.Models
 {
-    public class User
+    public class Admin
     {
         [Key]
-        public int UserID { get; set; }
+        public int AdminID { get; set; }
         [Required]
         public string UserName { get; set; }
         [Required]
@@ -23,6 +22,8 @@ namespace General.Models
         [Required]
         public DateTime DayOfBirth { get; set; }
         [Required]
+        public string PhoneNumber { get; set; }
+        [Required]
         public string Email { get; set; }
         public string ImageLink { get; set; }
         [Required]
@@ -31,8 +32,6 @@ namespace General.Models
         public DateTime UpdatedDate { get; set; } = DateTime.Now;
         [Required]
         public bool IsActive { get; set; }
-        public ICollection<UserAddress> UserAddresses { get; set; }
-        public Cart Cart { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public AdminType AdminType { get; set; }
     }
 }
