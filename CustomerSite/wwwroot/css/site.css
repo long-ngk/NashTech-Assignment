@@ -41,7 +41,7 @@ body {
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1;
+    z-index: 4;
     background-color: white;
 }
 
@@ -135,3 +135,13 @@ li.header__navbar-option {
     display: block
 }
 /*#endregion Header nav bar*/
+
+/*#region Carousel*/
+.carousel-item--fit {
+    height: 718px
+}
+
+    .carousel-item--fit img {
+        object-fit: contain
+    }
+/*#endregion Carousel*/
