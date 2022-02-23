@@ -145,3 +145,24 @@ li.header__navbar-option {
         object-fit: contain
     }
 /*#endregion Carousel*/
+
+/*#region Featured products*/
+.products__header {
+    margin-top: 86px;
+    margin-bottom: 26px;
+}
+
+.products__header-link{
+    text-decoration:none;
+}
+
+.card__img-wrapper {
+    height: 350px;
+}
+
+    .card__img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+/*#endregion Featured products*/
