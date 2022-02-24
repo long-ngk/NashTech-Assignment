@@ -239,3 +239,46 @@ li.header__navbar-option {
         width: 40px
     }
 /*#endregion News*/
+
+/*#region Product detail*/
+.product-detail__img{
+    height: 400px
+}
+
+.product-detail__img img{
+   object-fit:cover
+}
+
+.product-detail__title{
+    margin-bottom: 12px
+}
+
+.product-detail__ranking{
+    margin-bottom: 24px
+}
+
+.product-detail__category{
+    margin-bottom: 12px
+}
+
+.product-detail__price {
+    margin-bottom: 12px
+}
+
+.product-detail__price span {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.product-detail__quantity {
+    margin-bottom: 12px
+}
+
+.product-detail__btn{
+  
+}
+
+.product-detail__desc {
+    margin: 42px 0
+}
+/*#endregion Product detail*/
