@@ -42,6 +42,7 @@ namespace General.DataAccess
         public DbSet<Admin> Admins { get; set; }
         public DbSet<AdminType> AdminTypes { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductInventory> ProductInventories { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<ProductDiscount> ProductDiscounts { get; set; }

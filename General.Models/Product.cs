@@ -33,5 +33,6 @@ namespace General.Models
         public ICollection<ProductInventory> ProductInventories { get; set; }
         public ICollection<CartItem> CartItems { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
+        public ICollection<ProductImage> ProductImages { get; set; }
     }
 }
