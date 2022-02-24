@@ -21,7 +21,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\" />
+    <Folder Include="wwwroot\ProdImages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\ProdImages\img01.jpg" />
+    <None Include="wwwroot\ProdImages\img02.jpg" />
+    <None Include="wwwroot\ProdImages\img03.jpg" />
+    <None Include="wwwroot\ProdImages\img04.jpg" />
+    <None Include="wwwroot\ProdImages\img05.jpg" />
+    <None Include="wwwroot\ProdImages\img06.jpg" />
+    <None Include="wwwroot\ProdImages\img07.jpg" />
+    <None Include="wwwroot\ProdImages\img08.jpg" />
+    <None Include="wwwroot\ProdImages\img09.jpg" />
+    <None Include="wwwroot\ProdImages\img10.jpg" />
+    <None Include="wwwroot\ProdImages\img11.jpg" />
+    <None Include="wwwroot\ProdImages\img12.jpg" />
+    <None Include="wwwroot\ProdImages\img13.jpg" />
+    <None Include="wwwroot\ProdImages\img14.jpg" />
+    <None Include="wwwroot\ProdImages\img15.jpg" />
+    <None Include="wwwroot\ProdImages\img16.jpg" />
   </ItemGroup>
 
 </Project>

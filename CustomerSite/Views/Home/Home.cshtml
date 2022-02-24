@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<General.Models.ViewModels.VM_Product>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -18,96 +19,24 @@
     </div>
     <div class="products__content">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card">
-                    <div class="card__img-wrapper">
-                        <img src="~/img/slider02.jpg" class="card-img-top" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="#" class="btn btn-primary">Add to cart</a>
-                            <a href=""><i class="bi bi-heart"></i></a>
+            @foreach (var prod in Model)
+            {
+                <div class="col">
+                    <div class="card">
+                        <div class="card__img-wrapper">
+                            <img src="@Url.Content(@prod.ProductImages[0].ImageLink)" class="card-img-top" alt="...">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title cart-title--truncated">@prod.Product.ProdName</h5>
+                            <p class="card-text cart-text--truncated">@prod.Product.Description</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="#" class="btn btn-primary">Add to cart</a>
+                                <a href=""><i class="bi bi-heart"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card__img-wrapper">
-                        <img src="https://cdn.tgdd.vn/Products/Images/4728/242564/camera-ip-mi-home-360-do-1080p-xiaomi-bhr4885gl-ava-600x600.jpg" class="card-img-top" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="#" class="btn btn-primary">Add to cart</a>
-                            <a href=""><i class="bi bi-heart"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card__img-wrapper">
-                        <img src="~/img/slider02.jpg" class="card-img-top" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="#" class="btn btn-primary">Add to cart</a>
-                            <a href=""><i class="bi bi-heart"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card__img-wrapper">
-                        <img src="~/img/slider02.jpg" class="card-img-top" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="#" class="btn btn-primary">Add to cart</a>
-                            <a href=""><i class="bi bi-heart"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card__img-wrapper">
-                        <img src="~/img/slider02.jpg" class="card-img-top" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="#" class="btn btn-primary">Add to cart</a>
-                            <a href=""><i class="bi bi-heart"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card__img-wrapper">
-                        <img src="~/img/slider02.jpg" class="card-img-top" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="#" class="btn btn-primary">Add to cart</a>
-                            <a href=""><i class="bi bi-heart"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
@@ -128,7 +57,7 @@
                 </div>
                 <div class="news__item-text">
                     <span><i class="bi bi-calendar-event me-2"></i>24 February 2022</span>
-                    <h5>Realme V25 smartphone to launch soon, confirms company</h5>
+                    <h5>Realme V25 smartphone to launch soon, confirms by company</h5>
                     <a href="#">Read More</a>
                 </div>
             </div>

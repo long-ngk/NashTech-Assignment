@@ -149,7 +149,7 @@ li.header__navbar-option {
 /*#endregion Carousel*/
 
 /*#region Featured products*/
-.products{
+.products {
     margin-top: 86px;
 }
 
@@ -157,8 +157,8 @@ li.header__navbar-option {
     margin-bottom: 26px;
 }
 
-.products__header-link{
-    text-decoration:none;
+.products__header-link {
+    text-decoration: none;
 }
 
 .card__img-wrapper {
@@ -168,10 +168,26 @@ li.header__navbar-option {
     .card__img-wrapper img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
     }
-/*#endregion Featured products*/
 
+.cart-title--truncated,
+.cart-text--truncated {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cart-title--truncated {
+    height: 48px;
+    -webkit-line-clamp: 2;
+}
+
+.cart-text--truncated {
+    height: 96px;
+    -webkit-line-clamp: 4;
+}
+/*#endregion Featured products*/
 /*#region News*/
 .news {
     margin-top: 86px;
@@ -183,17 +199,18 @@ li.header__navbar-option {
     margin-bottom: 24px;
 }
 
-.news__title span {
-    color: #7b7bff;
-}
+    .news__title span {
+        color: #7b7bff;
+    }
 
     .news__title h2 {
         margin-top: 16px
     }
 
-.news__item-img{
-    height:270px
+.news__item-img {
+    height: 270px
 }
+
 .news__item-text {
     padding: 30px 30px 25px;
     margin: 0 30px;
@@ -206,12 +223,12 @@ li.header__navbar-option {
         opacity: 0.8;
     }
 
-    .news__item-text h5{
+    .news__item-text h5 {
         margin: 12px 0
     }
 
     .news__item-text a {
-        position:relative;
+        position: relative;
         color: #111111;
         font-size: 13px;
         font-weight: 600;
@@ -220,6 +237,7 @@ li.header__navbar-option {
         padding: 3px 0;
         text-decoration: none;
     }
+
         .news__item-text a:after {
             position: absolute;
             left: 0;
@@ -230,34 +248,35 @@ li.header__navbar-option {
             content: "";
             transition: all, 0.3s;
         }
+
 .news__item:hover .news__item-text {
     box-shadow: 0px 22px 50px #f2f3f5;
 }
 
-    .news__item:hover .news__item-text a:after{
+    .news__item:hover .news__item-text a:after {
         background: blue;
         width: 40px
     }
 /*#endregion News*/
 
 /*#region Product detail*/
-.product-detail__img{
+.product-detail__img {
     height: 400px
 }
 
-.product-detail__img img{
-   object-fit:cover
-}
+    .product-detail__img img {
+        object-fit: cover
+    }
 
-.product-detail__title{
+.product-detail__title {
     margin-bottom: 12px
 }
 
-.product-detail__ranking{
+.product-detail__ranking {
     margin-bottom: 24px
 }
 
-.product-detail__category{
+.product-detail__category {
     margin-bottom: 12px
 }
 
@@ -265,17 +284,16 @@ li.header__navbar-option {
     margin-bottom: 12px
 }
 
-.product-detail__price span {
-    font-size: 26px;
-    font-weight: 700;
-}
+    .product-detail__price span {
+        font-size: 26px;
+        font-weight: 700;
+    }
 
 .product-detail__quantity {
     margin-bottom: 12px
 }
 
-.product-detail__btn{
-  
+.product-detail__btn {
 }
 
 .product-detail__desc {
