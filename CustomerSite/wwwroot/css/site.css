@@ -265,7 +265,7 @@ li.header__navbar-option {
 }
 
     .product-detail__img img {
-        object-fit: cover
+        object-fit: contain;
     }
 
 .product-detail__title {
@@ -298,5 +298,9 @@ li.header__navbar-option {
 
 .product-detail__desc {
     margin: 42px 0
+}
+
+.carousel-control-icon--blue {
+    background-color: cornflowerblue
 }
 /*#endregion Product detail*/
