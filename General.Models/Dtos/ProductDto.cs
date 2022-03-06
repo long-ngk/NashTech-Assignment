@@ -9,6 +9,7 @@ namespace General.Models.Dtos
 {
     public class ProductDto
     {
+        [Key]
         public int ProductID { get; set; }
         [Required]
         public string ProdName { get; set; }
@@ -27,11 +28,12 @@ namespace General.Models.Dtos
         [Required]
         public int Views { get; set; }
 
+        public int CategoryID { get; set; }
         public ProductCategory ProductCategory { get; set; }
         public ProductDiscount ProductDiscount { get; set; }
         public ICollection<ProductInventory> ProductInventories { get; set; }
         public ICollection<CartItem> CartItems { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
-        public ICollection<ProductImage> ProductImages { get; set; }
+        public List<ProductImage> ProductImages { get; set; }
     }
 }

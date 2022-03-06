@@ -18,32 +18,42 @@ namespace General.DataAccess.Business
             _db = db;
             dbSet = _db.Set<T>();
         }
-        public void Add(T entity)
+        public async Task AddAsync(T entity)
         {
-            dbSet.Add(entity);
+            await dbSet.AddAsync(entity);
+            await _db.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            IQueryable<T> query = dbSet;
-            return dbSet.ToList();
+            return await dbSet.ToListAsync();
+        }
+        public async Task UpdateAsync(T entity)
+        {
+            dbSet.Update(entity);
+            await _db.SaveChangesAsync();
         }
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
-        {
-            IQueryable<T> query = dbSet;
-            query = query.Where(filter);
-            return query.FirstOrDefault();
-        }
-
-        public void Remove(T entity)
+        public async Task RemoveAsync(T entity)
         {
             dbSet.Remove(entity);
+            await _db.SaveChangesAsync();
         }
 
-        public void RemoveRange(IEnumerable<T> entity)
+        public async Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter)
         {
-            dbSet.RemoveRange(entity);
+            var item = await dbSet.FirstOrDefaultAsync(filter);
+            if (item == null)
+                throw new ArgumentNullException("Null");
+            return item;
+        }
+
+        public async Task<T> GetByIdAsync(object id)
+        {
+            var item = await dbSet.FindAsync(id);
+            if (item == null)
+                throw new ArgumentNullException("Null");
+            return item;
         }
     }
 }

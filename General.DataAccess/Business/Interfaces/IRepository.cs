@@ -9,10 +9,12 @@ namespace General.DataAccess.Business.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        T GetFirstOrDefault(Expression<Func<T, bool>> filter);
-        IEnumerable<T> GetAll();
-        void Add(T entity);
-        void Remove(T entity);
-        void RemoveRange(IEnumerable<T> entity);
+        Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter);
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetByIdAsync(object id);
+        Task AddAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task RemoveAsync(T entity);
     }
+
 }

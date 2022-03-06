@@ -1,4 +1,5 @@
-﻿using System;
+﻿using General.Models.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace General.Models.ViewModels
 {
     public class VM_Product
     {
-        public Product Product { get; set; }
-        public List<ProductImage> ProductImages { get; set; }
+        public ProductDto ProductDto { get; set; }
+        public List<ProductImageDto> ProductImageDto { get; set; }
     }
 }

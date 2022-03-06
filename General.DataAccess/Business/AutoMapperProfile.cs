@@ -18,15 +18,15 @@ namespace General.DataAccess.Business
 
         private void FromPresentationLayer()
         {
-            CreateMap<ProductDto, Product>();
             CreateMap<ProductCategoryDto, ProductCategory>();
+            CreateMap<ProductDto, Product>();
             CreateMap<ProductImageDto, ProductImage>();
         }
 
         private void FromDataAccessorLayer()
         {
-            CreateMap<Product, ProductDto>();
             CreateMap<ProductCategory, ProductCategoryDto>();
+            CreateMap<Product, ProductDto>();
             CreateMap<ProductImage, ProductImageDto>();
         }
     }
