@@ -1,4 +1,5 @@
 ﻿using General.DataAccess;
+using General.DataAccess.Business.Interfaces;
 using General.Models;
 using General.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -8,22 +9,25 @@ namespace CustomerSite.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _db;
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
+        private readonly IProductService _productService;
+        private readonly IProductImageService _productImageService;
+        public HomeController(IProductService productService,
+            IProductImageService productImageService)
         {
-            _logger = logger;
-            _db = db;
+            _productService = productService;
+            _productImageService = productImageService;
         }
 
-        public IActionResult Home()
+        public async Task<IActionResult> Home()
         {
-            List<VM_Product> products = _db.Products.ToList()
-               .GroupJoin(_db.ProductImages.ToList(),
+            var productList = await _productService.GetAllAsync();
+            var productImageList = await _productImageService.GetAllAsync();
+            IEnumerable<VM_Product> products = productList.GroupJoin
+                (productImageList,
                p => p.ProductID,
                img => img.Product.ProductID,
-               (p, img) => new VM_Product { Product = p, ProductImages = img.ToList() })
-               .OrderByDescending(p => p.Product.Views)
+               (p, img) => new VM_Product { ProductDto = p, ProductImageDto = img.ToList() })
+               .OrderByDescending(p => p.ProductDto.Views)
                .Take(6).ToList();
 
             return View(products);

@@ -1,5 +1,8 @@
-﻿using General.DataAccess;
+﻿using AutoMapper;
+using General.DataAccess;
+using General.DataAccess.Business.Interfaces;
 using General.Models;
+using General.Models.Dtos;
 using General.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -8,45 +11,40 @@ namespace CustomerSite.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public ProductController(ApplicationDbContext db)
+
+        private readonly IProductService _productService;
+        private readonly IProductCategoryService _productCategoryService;
+        private readonly IProductImageService _productImageService;
+        public ProductController(IProductService productService,
+            IProductCategoryService productCategoryService,
+            IProductImageService productImageService
+           )
         {
-            _db = db;
+            _productService = productService;
+            _productCategoryService = productCategoryService;
+            _productImageService = productImageService;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Detail(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Detail(int? id)
         {
             if (id == null)
             {
                 return BadRequest();
             }
 
-            //IEnumerable<Product> products = from p in _db.Products
-            //                                join c in _db.ProductCategories
-            //                                on p.ProductCategory.CategoryID equals c.CategoryID
-            //                                select p;
-            VM_Product? vm_Product = (from p in _db.Products.ToList()
-                                      join img in _db.ProductImages.ToList()
-                                      on p.ProductID equals img.Product.ProductID
-                                      into ProductImageList
-                                      join c in _db.ProductCategories.ToList()
-                                      on p.ProductCategory.CategoryID equals c.CategoryID
-                                      where p.ProductID.Equals(id)
-                                      select new VM_Product
-                                      {
-                                          Product = p,
-                                          ProductImages = ProductImageList.ToList(),
-                                      }).FirstOrDefault();
-            if (vm_Product == null)
-            {
-                return NotFound();
-            }
+            var productCategoryList = await _productCategoryService.GetAllAsync();
+            var productImageList = await _productImageService.GetAllAsync();
 
-            return View(vm_Product);
+            var product = await _productService.GetByIdAsync((int)id);
+            if (product == null)
+                return NotFound();
+
+            return View(product);
         }
     }
 }

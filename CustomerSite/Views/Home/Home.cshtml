@@ -24,11 +24,11 @@
                 <div class="col">
                     <div class="card">
                         <div class="card__img-wrapper">
-                            <img src="@Url.Content(@prod.ProductImages[0].ImageLink)" class="card-img-top" alt="...">
+                            <a class="text-decoration-none" asp-controller="Product" asp-action="Detail" asp-route-id="@prod.ProductDto.ProductID"><img src="@Url.Content(@prod.ProductImageDto[0].ImageLink)" class="card-img-top" alt="..."></a>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title cart-title--truncated">@prod.Product.ProdName</h5>
-                            <p class="card-text cart-text--truncated">@prod.Product.Description</p>
+                            <h5 class="card-title cart-title--truncated"><a class="text-decoration-none" asp-controller="Product" asp-action="Detail" asp-route-id="@prod.ProductDto.ProductID">@prod.ProductDto.ProdName </a></h5>
+                            <p class="card-text cart-text--truncated">@prod.ProductDto.Description</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="#" class="btn btn-primary">Add to cart</a>
                                 <a href=""><i class="bi bi-heart"></i></a>
