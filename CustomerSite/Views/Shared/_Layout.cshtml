@@ -26,7 +26,7 @@
                     <div class="col-lg-6 col-md-6">
                         <ul class="header__navbar-list d-flex justify-content-evenly">
                             <li class="header__navbar-option">
-                                <a href="" class="header__navbar-link">Home</a>
+                                <a asp-controller="Home" asp-action="Home" class="header__navbar-link">Home</a>
                             </li>
                             <li class="header__navbar-option header__navbar-dropdown">
                                 <div href="" class="header__navbar-link">
@@ -37,13 +37,13 @@
                                     <div class="header__navbar-dropdown-content rounded-bottom">
                                         <ul>
                                             <li>
-                                                <a href="">All</a>
+                                                <a asp-controller="Home" asp-action="Category">All</a>
                                             </li>
                                             <li>
-                                                <a href="">Computers & Accessories</a>
+                                                <a href="">Smartphones</a>
                                             </li>
                                             <li>
-                                                <a href="">Smartphones & Tablets</a>
+                                                <a href="">Tablets</a>
                                             </li>
                                             <li>
                                                 <a href="">Headphones</a>
