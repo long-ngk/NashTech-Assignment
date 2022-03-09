@@ -1,0 +1,159 @@
+﻿@using General.DataAccess.Business
+@using System.Globalization
+@model IEnumerable<ProductDto>
+@{
+    ViewData["Title"] = "Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Pager pager = new Pager();
+
+    int pageNumber = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNumber = pager.CurrentPage;
+    }
+
+    var categoryName = "";
+    if (ViewData["CategoryName"] != null)
+        categoryName = ViewData["CategoryName"].ToString();
+}
+
+<div class="category-wrapper">
+    <div class="row">
+        <div class="col-lg-3">
+            <h2 class="category-of-product__header">Category</h2>
+            <ul class="category-of-product__list">
+                <li class="category-of-product__item">
+                    <a class="category-of-product__item__link @(categoryName == "All" ? "active" : "")"
+                       asp-controller="Home"
+                       asp-action="Category"
+                       asp-route-categoryID="0">All</a>
+                </li>
+                @{
+                    if (ViewData["Categories"] != null)
+                    {
+                        var categories =
+                        (List<ProductCategoryDto>)ViewData["Categories"];
+                        if (categories != null)
+                        {
+                            foreach (var category in categories)
+                            {
+                                <li class="category-of-product__item">
+                                    <a class="category-of-product__item__link @(categoryName == category.CategoryName ? "active" : "")"
+                       asp-controller="Home"
+                       asp-action="Category"
+                       asp-route-categoryID="@(category.CategoryID)">@category.CategoryName</a>
+                                </li>
+                            }
+                        }
+                    }
+                }
+            </ul>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="breadcrumb-wrapper">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">Category</li>
+                        <li class="breadcrumb-item active"
+                            aria-current="page">
+                            @(ViewData["CategoryName"].ToString())</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="search-wrapper">
+                <form asp-controller="Home"
+                      asp-action="Category"
+                      method="get">
+                    <div class="input-group mb-3">
+                        <input type="text"
+                               name="searchText"
+                               id="search-input"
+                               class="form-control"
+                               placeholder="Type keyword to search"
+                               aria-label="keyword"
+                               aria-describedby="button-search" />
+                        <input type="hidden"
+                               name="categoryID"
+                               value="@(ViewData["CategoryID"].ToString())" />
+                        <button class="btn btn-outline-info"
+                                type="submit"
+                                id="search-button">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="search-result active">
+                <h5>
+                    @if (ViewData["SearchText"] != null &&
+                    ViewData["SearchText"].ToString() != "")
+                    {
+                        <span>Finding by keyword: </span>
+                        <span
+                          class="search-result__keyword">@(ViewData["SearchText"].ToString())</span>
+                    }
+                </h5>
+            </div>
+            <div class="product-by-category">
+                <div
+                     class="row row-cols-1 row-cols-md-3 g-4 product-by-category__list">
+                    @foreach (var product in Model)
+                    {
+                        <div class="col">
+                            <div class="card h-100">
+                                <a class="text-decoration-none"
+                               href="/Product/Detail/@(product.ProductID)">
+                                    <img src="@(product.ProductImages.First().ImageLink.Substring(1))"
+                                     class="card-img-top"
+                                     alt="...">
+                                </a>
+                                <div class="card-body">
+                                    <div class="clearfix mb-3"> <span
+                                          class="float-start badge rounded-pill bg-success fs-6">@(product.Price.ToString("#,###",
+                                        CultureInfo.GetCultureInfo("vi-VN").NumberFormat))
+                                            VND</span><span class="float-end">3.5 <i
+                                           class="bi bi-star-fill"
+                                           style="color: orange"></i></span>
+                                    </div>
+                                    <h5
+                                    class="mb-4 card-title cart-title--truncated">
+                                        <a class="text-decoration-none text-reset"
+                                       href="/Product/Detail/@(product.ProductID)">@(product.ProdName)
+                                        </a>
+                                    </h5>
+                                    <div
+                                     class="d-flex justify-content-between align-items-center">
+                                        <a href="#"
+                                       class="btn btn-primary">Add to cart</a>
+                                        <a href=""><i class="bi bi-heart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <partial name="_Pager"
+                     model="@(pager)" />
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const linkColor = document.querySelectorAll('.category-of-product__item__link')
+    const breadcrumbItemActive = document.querySelector('.breadcrumb-item.active')
+    const listProductsByCategory = document.querySelector('.product-by-category__list')
+
+    //make the category item active when clicked and change the name of breadcrumb item to the name of category was clicked
+    function colorLink() {
+        if (linkColor) {
+            linkColor.forEach(l => l.classList.remove('active'))
+            this.classList.add('active')
+            breadcrumbItemActive.innerHTML = this.innerHTML
+        }
+    }
+    linkColor.forEach(l => l.addEventListener('click', colorLink))
+</script>

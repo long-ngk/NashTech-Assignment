@@ -1,11 +1,5 @@
-﻿using AutoMapper;
-using General.DataAccess;
-using General.DataAccess.Business.Interfaces;
-using General.Models;
-using General.Models.Dtos;
-using General.Models.ViewModels;
+﻿using General.DataAccess.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace CustomerSite.Controllers
 {
