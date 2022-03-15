@@ -29,10 +29,14 @@ namespace General.DataAccess.Business
             await _db.SaveChangesAsync();
         }
 
-        public async Task RemoveAsync(T entity)
+        public async Task RemoveAsync(object id)
         {
-            dbSet.Remove(entity);
-            await _db.SaveChangesAsync();
+            var entity = await dbSet.FindAsync(id);
+            if (entity != null)
+            {
+                dbSet.Remove(entity);
+                await _db.SaveChangesAsync();
+            }
         }
 
         public async Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter)

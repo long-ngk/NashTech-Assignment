@@ -8,6 +8,6 @@ namespace General.DataAccess.Business.Interfaces
         Task<IEnumerable<ProductCategoryDto>> GetAllAsync();
         Task AddAsync(ProductCategoryDto productCategoryDto);
         Task UpdateAsync(ProductCategoryDto productCategoryDto);
-        Task RemoveAsync(ProductCategoryDto productCategoryDto);
+        Task RemoveAsync(int id);
     }
 }

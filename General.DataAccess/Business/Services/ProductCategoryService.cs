@@ -29,10 +29,9 @@ namespace General.DataAccess.Business.Services
             return _mapper.Map<ProductCategoryDto>(category);
         }
 
-        public async Task RemoveAsync(ProductCategoryDto productCategoryDto)
+        public async Task RemoveAsync(int id)
         {
-            var category = _mapper.Map<ProductCategory>(productCategoryDto);
-            await _repository.RemoveAsync(category);
+            await _repository.RemoveAsync(id);
         }
 
         public async Task UpdateAsync(ProductCategoryDto productCategoryDto)

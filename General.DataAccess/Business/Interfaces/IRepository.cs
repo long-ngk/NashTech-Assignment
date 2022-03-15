@@ -9,7 +9,7 @@ namespace General.DataAccess.Business.Interfaces
         Task<T> GetByIdAsync(object id);
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);
-        Task RemoveAsync(T entity);
+        Task RemoveAsync(object id);
     }
 
 }

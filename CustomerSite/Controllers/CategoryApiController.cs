@@ -50,7 +50,7 @@ namespace CustomerSite.Controllers
         {
             var categoryDto = await _productCategoryService.GetByIdAsync(id);
             Ensure.Any.IsNotNull(categoryDto, nameof(categoryDto));
-            await _productCategoryService.RemoveAsync(categoryDto);
+            await _productCategoryService.RemoveAsync(id);
             return NoContent();
         }
     }
