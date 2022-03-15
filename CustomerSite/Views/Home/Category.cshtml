@@ -102,10 +102,11 @@
                      class="row row-cols-1 row-cols-md-3 g-4 product-by-category__list">
                     @foreach (var product in Model)
                     {
+                         var productDetailUrl = $"/product/{SlugGenerator.SlugGenerator.GenerateSlug(product.ProdName)}-{product.ProductID}";
                         <div class="col">
                             <div class="card h-100">
                                 <a class="text-decoration-none"
-                               href="/Product/Detail/@(product.ProductID)">
+                               href="@productDetailUrl">
                                     <img src="@(product.ProductImages.First().ImageLink.Substring(1))"
                                      class="card-img-top"
                                      alt="...">
@@ -121,7 +122,7 @@
                                     <h5
                                     class="mb-4 card-title cart-title--truncated">
                                         <a class="text-decoration-none text-reset"
-                                       href="/Product/Detail/@(product.ProductID)">@(product.ProdName)
+                                       href="@productDetailUrl">@(product.ProdName)
                                         </a>
                                     </h5>
                                     <div

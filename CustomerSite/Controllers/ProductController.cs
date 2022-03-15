@@ -18,12 +18,8 @@ namespace CustomerSite.Controllers
             _productCategoryService = productCategoryService;
             _productImageService = productImageService;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-        [HttpGet]
+        [Route("product/{slug}-{id:int}")]
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null)
