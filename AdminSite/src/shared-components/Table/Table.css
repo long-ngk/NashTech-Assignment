@@ -1,0 +1,74 @@
+.table-container {
+    overflow-x: auto;
+}
+
+.table-container > table {
+    border-collapse: separate;
+    border-spacing: 1rem 0;
+}
+
+.table-container > .table {
+    width: 100%;
+    text-align: left;
+}
+
+.table-container > .table > thead th {
+    text-transform: capitalize;
+}
+
+.table-container > .table > thead th > a {
+    font-weight: bold;
+}
+
+.table-container > .table > td {
+    border-bottom: 2px solid #dee2e6;
+    padding: 0;
+    border-top: none;
+}
+    
+.table-container > .table > td:last-child {
+    border: none;
+}
+    
+.table-container > .table > th {
+    padding: 0;
+    border-bottom: 0 2px solid #dee2e6;
+    border-top: none;
+}
+
+.table-container > .table > tr:hover {
+    cursor: pointer;
+}
+
+.pagination {
+    margin-left: auto;
+}
+
+.pagination > li > .pagination__link {
+    color: rgba(207,35,56,1);
+    padding: 0.5rem 1rem;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    text-decoration: none;
+}
+        
+.pagination > li > .link-disable {
+    color: rgba(108,117,125,1);
+}
+        
+.pagination > li > .pagination__link:hover, 
+.pagination > li > .link-active {
+    background-color: rgba(207,35,56,1);
+    color: aliceblue;
+    cursor: pointer;
+}
+        
+.pagination > li > .link-active:hover {
+    cursor: default;
+}
+
+.pagination > li > .link-disable:hover{
+    cursor:not-allowed;
+    background-color: transparent;
+    color: rgba(108,117,125,1);
+}
