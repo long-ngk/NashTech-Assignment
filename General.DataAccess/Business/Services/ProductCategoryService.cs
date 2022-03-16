@@ -45,5 +45,35 @@ namespace General.DataAccess.Business.Services
             var categories = await _repository.GetAllAsync();
             return _mapper.Map<List<ProductCategoryDto>>(categories);
         }
+
+        public async Task<PagerModel<ProductCategoryDto>> GetAllPagedAsync(int page, int limit, string sortOrder, string sortColumn)
+        {
+            IEnumerable<ProductCategory> categories;
+            if (sortColumn == "id")
+            {
+                categories = await _repository.GetAllWithSortedAsync(sortOrder, c => c.CategoryID);
+            }
+            else
+            {
+                categories = await _repository.GetAllWithSortedAsync(sortOrder, c => c.CategoryName);
+            }
+
+            int sourceCount = categories.Count();
+            var pager = new Pager(sourceCount, page, limit);
+
+            var listProductCategoryDto = _mapper.Map<List<ProductCategory>, List<ProductCategoryDto>>(categories.ToList());
+
+            //example: when in page 2 skip the number of products already showed in page 1
+            int sourceSkip = (page - 1) * limit;
+            var categoriesPaged = listProductCategoryDto.Skip(sourceSkip).Take(pager.PageSize).ToList();
+
+            PagerModel<ProductCategoryDto> pagerModel = new PagerModel<ProductCategoryDto>()
+            {
+                Pager = pager,
+                DataList = categoriesPaged
+            };
+
+            return pagerModel;
+        }
     }
 }

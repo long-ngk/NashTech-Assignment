@@ -54,5 +54,19 @@ namespace General.DataAccess.Business
                 throw new ArgumentNullException("Null");
             return item;
         }
+
+        public async Task<IEnumerable<T>> GetAllWithSortedAsync(string sortOrder, Expression<Func<T, object>> filter)
+        {
+            IQueryable<T> categories;
+            if (sortOrder == "Accsending")
+            {
+                categories = dbSet.OrderBy(filter);
+            }
+            else
+            {
+                categories = dbSet.OrderByDescending(filter);
+            }
+            return await categories.ToListAsync();
+        }
     }
 }

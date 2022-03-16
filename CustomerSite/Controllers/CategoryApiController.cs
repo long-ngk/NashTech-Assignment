@@ -1,4 +1,5 @@
 ﻿using EnsureThat;
+using General.DataAccess.Business;
 using General.DataAccess.Business.Constants;
 using General.DataAccess.Business.Interfaces;
 using General.Models.Dtos;
@@ -16,9 +17,9 @@ namespace CustomerSite.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCategory()
+        public async Task<IActionResult> GetCategory(int page = 1, int limit = 5, string sortOrder = "Accsending", string sortColumn = "id")
         {
-            var _categories = await _productCategoryService.GetAllAsync();
+            PagerModel<ProductCategoryDto> _categories = await _productCategoryService.GetAllPagedAsync(page, limit, sortOrder, sortColumn);
             return Ok(_categories);
         }
 
