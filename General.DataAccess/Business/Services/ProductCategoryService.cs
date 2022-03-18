@@ -49,7 +49,7 @@ namespace General.DataAccess.Business.Services
         public async Task<PagerModel<ProductCategoryDto>> GetAllPagedAsync(int page, int limit, string sortOrder, string sortColumn)
         {
             IEnumerable<ProductCategory> categories;
-            if (sortColumn == "id")
+            if (sortColumn == "Id")
             {
                 categories = await _repository.GetAllWithSortedAsync(sortOrder, c => c.CategoryID);
             }
