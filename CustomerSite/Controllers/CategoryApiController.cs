@@ -17,7 +17,14 @@ namespace CustomerSite.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCategory(int page = 1, int limit = 5, string sortOrder = "Accsending", string sortColumn = "id")
+        public async Task<IActionResult> GetCategory()
+        {
+            var _categories = await _productCategoryService.GetAllAsync();
+            return Ok(_categories);
+        }
+
+        [HttpGet("pagination")]
+        public async Task<IActionResult> GetPagedCategory(int page = 1, int limit = 5, string sortOrder = "Accsending", string sortColumn = "Id")
         {
             PagerModel<ProductCategoryDto> _categories = await _productCategoryService.GetAllPagedAsync(page, limit, sortOrder, sortColumn);
             return Ok(_categories);
