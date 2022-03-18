@@ -9,6 +9,6 @@ namespace General.DataAccess.Business.Interfaces
         Task<PagerModel<ProductDto>> GetAllPagedAsync(int pageNumber, int pageSize, string searchText, int categoryID);
         Task AddAsync(ProductDto productDto);
         Task UpdateAsync(ProductDto productDto);
-        Task RemoveAsync(ProductDto productDto);
+        Task RemoveAsync(int id);
     }
 }
