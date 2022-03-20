@@ -91,10 +91,12 @@ namespace General.UnitTest
             var controller = new CategoryApiController(_mockCategoryService.Object);
 
             //act
-            var result = await controller.CreateAsync(newCategory);
+            var result = await controller.CreateAsync(newCategory) as CreatedResult;
 
             //assert
             Assert.IsType<CreatedResult>(result);
+            Assert.Equal(newCategory, result.Value);
+            _mockCategoryService.Verify(repo => repo.AddAsync(It.IsAny<ProductCategoryDto>()), Times.Once);
         }
 
         [Fact]
@@ -111,6 +113,7 @@ namespace General.UnitTest
 
             //assert
             Assert.IsType<NoContentResult>(result);
+            _mockCategoryService.Verify(repo => repo.UpdateAsync(It.IsAny<ProductCategoryDto>()), Times.Once);
         }
 
         [Fact]
@@ -135,6 +138,7 @@ namespace General.UnitTest
         {
             // Arrange
             var id = 10;
+            _mockCategoryService.Setup(repo => repo.RemoveAsync(It.IsAny<int>()));
             var controller = new CategoryApiController(_mockCategoryService.Object);
 
             // Act
