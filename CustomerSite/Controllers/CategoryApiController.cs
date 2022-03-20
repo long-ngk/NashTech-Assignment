@@ -34,6 +34,8 @@ namespace CustomerSite.Controllers
         public async Task<IActionResult> GetCategoryById(int id)
         {
             var _categories = await _productCategoryService.GetByIdAsync(id);
+            if (_categories == null)
+                return NotFound();
             return Ok(_categories);
         }
 
@@ -57,7 +59,8 @@ namespace CustomerSite.Controllers
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             var categoryDto = await _productCategoryService.GetByIdAsync(id);
-            Ensure.Any.IsNotNull(categoryDto, nameof(categoryDto));
+            if (categoryDto == null)
+                return NotFound();
             await _productCategoryService.RemoveAsync(id);
             return NoContent();
         }

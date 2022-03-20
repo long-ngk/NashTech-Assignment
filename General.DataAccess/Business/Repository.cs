@@ -50,8 +50,6 @@ namespace General.DataAccess.Business
         public async Task<T> GetByIdAsync(object id)
         {
             var item = await dbSet.FindAsync(id);
-            if (item == null)
-                throw new ArgumentNullException("Null");
             return item;
         }
 

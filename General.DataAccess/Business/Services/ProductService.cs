@@ -79,7 +79,7 @@ namespace General.DataAccess.Business.Services
 
         public async Task RemoveAsync(int id)
         {
-               await _repositoryProduct.RemoveAsync(id);
+            await _repositoryProduct.RemoveAsync(id);
         }
         public async Task UpdateAsync(ProductDto productDto)
         {
