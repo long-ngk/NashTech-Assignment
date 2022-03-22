@@ -4,6 +4,7 @@ using General.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace General.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220322095921_RemoveDistrict_WardTable")]
+    partial class RemoveDistrict_WardTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,9 +162,6 @@ namespace General.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"), 1L, 1);
 
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -170,18 +169,21 @@ namespace General.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DiscountID")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<string>("ProductName")
+                    b.Property<string>("ProdName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductCategoryCategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductDiscountDiscountID")
+                        .HasColumnType("int");
 
                     b.Property<string>("SKU")
                         .IsRequired()
@@ -195,9 +197,9 @@ namespace General.DataAccess.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("CategoryID");
+                    b.HasIndex("ProductCategoryCategoryID");
 
-                    b.HasIndex("DiscountID");
+                    b.HasIndex("ProductDiscountDiscountID");
 
                     b.ToTable("Products");
                 });
@@ -465,13 +467,13 @@ namespace General.DataAccess.Migrations
                 {
                     b.HasOne("General.Models.ProductCategory", "ProductCategory")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryID")
+                        .HasForeignKey("ProductCategoryCategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("General.Models.ProductDiscount", "ProductDiscount")
                         .WithMany("Products")
-                        .HasForeignKey("DiscountID")
+                        .HasForeignKey("ProductDiscountDiscountID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

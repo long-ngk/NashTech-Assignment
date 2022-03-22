@@ -57,7 +57,7 @@ export default function Product(props) {
 					{products.map((product) => (
 						<tr key={product.ProductID}>
 							<td>{product.ProductID}</td>
-							<td>{product.ProdName}</td>
+							<td>{product.ProductName}</td>
 							<td>{product.Description}</td>
 							<td>
 								<ButtonToolbar>
@@ -77,7 +77,7 @@ export default function Product(props) {
 										onClick={() =>
 											deleteProduct(
 												product.ProductID,
-												product.ProdName
+												product.ProductName
 											)
 										}
 									>

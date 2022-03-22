@@ -4,6 +4,7 @@ using General.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace General.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220322095452_RemoveAdminTable")]
+    partial class RemoveAdminTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,6 +95,26 @@ namespace General.DataAccess.Migrations
                     b.ToTable("Cities");
                 });
 
+            modelBuilder.Entity("General.Models.District", b =>
+                {
+                    b.Property<string>("DistrictID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CityID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DistrictName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DistrictID");
+
+                    b.HasIndex("CityID");
+
+                    b.ToTable("Districts");
+                });
+
             modelBuilder.Entity("General.Models.Order", b =>
                 {
                     b.Property<int>("OrderID")
@@ -160,9 +182,6 @@ namespace General.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"), 1L, 1);
 
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -170,18 +189,21 @@ namespace General.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DiscountID")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<string>("ProductName")
+                    b.Property<string>("ProdName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductCategoryCategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductDiscountDiscountID")
+                        .HasColumnType("int");
 
                     b.Property<string>("SKU")
                         .IsRequired()
@@ -195,9 +217,9 @@ namespace General.DataAccess.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("CategoryID");
+                    b.HasIndex("ProductCategoryCategoryID");
 
-                    b.HasIndex("DiscountID");
+                    b.HasIndex("ProductDiscountDiscountID");
 
                     b.ToTable("Products");
                 });
@@ -385,6 +407,10 @@ namespace General.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("DistrictID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("MobilePhone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -392,13 +418,41 @@ namespace General.DataAccess.Migrations
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
+                    b.Property<string>("WardID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("UserAddressID");
 
                     b.HasIndex("CityID");
 
+                    b.HasIndex("DistrictID");
+
                     b.HasIndex("UserID");
 
+                    b.HasIndex("WardID");
+
                     b.ToTable("UserAddresses");
+                });
+
+            modelBuilder.Entity("General.Models.Ward", b =>
+                {
+                    b.Property<string>("WardID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DistrictID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("WardName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WardID");
+
+                    b.HasIndex("DistrictID");
+
+                    b.ToTable("Wards");
                 });
 
             modelBuilder.Entity("General.Models.Cart", b =>
@@ -429,6 +483,17 @@ namespace General.DataAccess.Migrations
                     b.Navigation("Cart");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("General.Models.District", b =>
+                {
+                    b.HasOne("General.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("General.Models.Order", b =>
@@ -465,13 +530,13 @@ namespace General.DataAccess.Migrations
                 {
                     b.HasOne("General.Models.ProductCategory", "ProductCategory")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryID")
+                        .HasForeignKey("ProductCategoryCategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("General.Models.ProductDiscount", "ProductDiscount")
                         .WithMany("Products")
-                        .HasForeignKey("DiscountID")
+                        .HasForeignKey("ProductDiscountDiscountID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -510,15 +575,42 @@ namespace General.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("General.Models.District", "District")
+                        .WithMany("UserAddresses")
+                        .HasForeignKey("DistrictID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("General.Models.User", "User")
                         .WithMany("UserAddresses")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("General.Models.Ward", "Ward")
+                        .WithMany("UserAddresses")
+                        .HasForeignKey("WardID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("City");
 
+                    b.Navigation("District");
+
                     b.Navigation("User");
+
+                    b.Navigation("Ward");
+                });
+
+            modelBuilder.Entity("General.Models.Ward", b =>
+                {
+                    b.HasOne("General.Models.District", "District")
+                        .WithMany()
+                        .HasForeignKey("DistrictID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("District");
                 });
 
             modelBuilder.Entity("General.Models.Cart", b =>
@@ -527,6 +619,11 @@ namespace General.DataAccess.Migrations
                 });
 
             modelBuilder.Entity("General.Models.City", b =>
+                {
+                    b.Navigation("UserAddresses");
+                });
+
+            modelBuilder.Entity("General.Models.District", b =>
                 {
                     b.Navigation("UserAddresses");
                 });
@@ -564,6 +661,11 @@ namespace General.DataAccess.Migrations
 
                     b.Navigation("Orders");
 
+                    b.Navigation("UserAddresses");
+                });
+
+            modelBuilder.Entity("General.Models.Ward", b =>
+                {
                     b.Navigation("UserAddresses");
                 });
 #pragma warning restore 612, 618

@@ -13,14 +13,6 @@ namespace General.DataAccess
                 .WithMany(u => u.UserAddresses)
                 .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<UserAddress>()
-                .HasOne(w => w.Ward)
-                .WithMany(u => u.UserAddresses)
-                .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<UserAddress>()
-                .HasOne(w => w.District)
-                .WithMany(u => u.UserAddresses)
-                .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<UserAddress>()
                 .HasOne(w => w.City)
                 .WithMany(u => u.UserAddresses)
                 .OnDelete(DeleteBehavior.Cascade);
@@ -30,12 +22,8 @@ namespace General.DataAccess
                 .OnDelete(DeleteBehavior.Restrict);
         }
         public DbSet<User> Users { get; set; }
-        public DbSet<Ward> Wards { get; set; }
-        public DbSet<District> Districts { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<UserAddress> UserAddresses { get; set; }
-        public DbSet<Admin> Admins { get; set; }
-        public DbSet<AdminType> AdminTypes { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductInventory> ProductInventories { get; set; }

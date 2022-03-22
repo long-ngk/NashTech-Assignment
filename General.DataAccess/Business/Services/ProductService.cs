@@ -45,7 +45,7 @@ namespace General.DataAccess.Business.Services
             var products = await _repositoryProduct.GetAllAsync();
             if (!string.IsNullOrWhiteSpace(searchText))
             {
-                products = products.Where(p => p.ProdName.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+                products = products.Where(p => p.ProductName.Contains(searchText, StringComparison.OrdinalIgnoreCase));
             }
 
             if (categoryID > 0)

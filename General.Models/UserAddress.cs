@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace General.Models
 {
@@ -10,9 +11,9 @@ namespace General.Models
         public string Address { get; set; }
         [Required]
         public string MobilePhone { get; set; }
+        [ForeignKey("UserID")]
         public User User { get; set; }
-        public Ward Ward { get; set; }
-        public District District { get; set; }
+        [ForeignKey("CityID")]
         public City City { get; set; }
     }
 }
