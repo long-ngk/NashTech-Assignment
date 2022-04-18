@@ -12,12 +12,12 @@
                     {
                         if (i == 0)
                         {
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i" class="active" aria-current="true" aria-label="Slide @(i+1)">
-                            </button>
+                                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i" class="active" aria-current="true" aria-label="Slide @(i+1)">
+                                                    </button>
                         }
                         else
                         {
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i" aria-label="Slide @(i+1)"></button>
+                                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i" aria-label="Slide @(i+1)"></button>
                         }
                     }
                 </div>
@@ -26,15 +26,15 @@
                     {
                         if (i == 0)
                         {
-                            <div class="carousel-item active product-detail__img">
-                                <img src="@Url.Content(Model.ProductImages[i].ImageLink)" class="d-block w-100 h-100" alt="@Model.ProductImages[i].ProductImageID">
-                            </div>
+                                                    <div class="carousel-item active product-detail__img">
+                                                        <img src="@Url.Content(Model.ProductImages[i].ImageLink)" class="d-block w-100 h-100" alt="@Model.ProductImages[i].ProductImageID">
+                                                    </div>
                         }
                         else
                         {
-                            <div class="carousel-item product-detail__img">
-                                <img src="@Url.Content(Model.ProductImages[i].ImageLink)" class="d-block w-100 h-100" alt="@Model.ProductImages[i].ProductImageID">
-                            </div>
+                                                    <div class="carousel-item product-detail__img">
+                                                        <img src="@Url.Content(Model.ProductImages[i].ImageLink)" class="d-block w-100 h-100" alt="@Model.ProductImages[i].ProductImageID">
+                                                    </div>
                         }
                     }
                 </div>
@@ -50,7 +50,7 @@
         </div>
         <div class="col-lg-6">
             <div class="product-detail__text">
-                <h2 class="product-detail__title">@Model.ProdName</h2>
+                <h2 class="product-detail__title">@Model.ProductName</h2>
                 <div class="product-detail__ranking">
                     <a>212 rates (4.5 <i class="bi bi-star" style="color: red"></i>)</a>
                 </div>

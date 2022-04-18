@@ -1,48 +1,50 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
-    <PackageReference Include="SlugGenerator" Version="2.0.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
+		<PackageReference Include="SlugGenerator" Version="2.0.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\General.DataAccess\General.DataAccess.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\General.DataAccess\General.DataAccess.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\ProdImages\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\ProdImages\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\ProdImages\img01.jpg" />
-    <None Include="wwwroot\ProdImages\img02.jpg" />
-    <None Include="wwwroot\ProdImages\img03.jpg" />
-    <None Include="wwwroot\ProdImages\img04.jpg" />
-    <None Include="wwwroot\ProdImages\img05.jpg" />
-    <None Include="wwwroot\ProdImages\img06.jpg" />
-    <None Include="wwwroot\ProdImages\img07.jpg" />
-    <None Include="wwwroot\ProdImages\img08.jpg" />
-    <None Include="wwwroot\ProdImages\img09.jpg" />
-    <None Include="wwwroot\ProdImages\img10.jpg" />
-    <None Include="wwwroot\ProdImages\img11.jpg" />
-    <None Include="wwwroot\ProdImages\img12.jpg" />
-    <None Include="wwwroot\ProdImages\img13.jpg" />
-    <None Include="wwwroot\ProdImages\img14.jpg" />
-    <None Include="wwwroot\ProdImages\img15.jpg" />
-    <None Include="wwwroot\ProdImages\img16.jpg" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="wwwroot\ProdImages\img01.jpg" />
+		<None Include="wwwroot\ProdImages\img02.jpg" />
+		<None Include="wwwroot\ProdImages\img03.jpg" />
+		<None Include="wwwroot\ProdImages\img04.jpg" />
+		<None Include="wwwroot\ProdImages\img05.jpg" />
+		<None Include="wwwroot\ProdImages\img06.jpg" />
+		<None Include="wwwroot\ProdImages\img07.jpg" />
+		<None Include="wwwroot\ProdImages\img08.jpg" />
+		<None Include="wwwroot\ProdImages\img09.jpg" />
+		<None Include="wwwroot\ProdImages\img10.jpg" />
+		<None Include="wwwroot\ProdImages\img11.jpg" />
+		<None Include="wwwroot\ProdImages\img12.jpg" />
+		<None Include="wwwroot\ProdImages\img13.jpg" />
+		<None Include="wwwroot\ProdImages\img14.jpg" />
+		<None Include="wwwroot\ProdImages\img15.jpg" />
+		<None Include="wwwroot\ProdImages\img16.jpg" />
+	</ItemGroup>
 
 </Project>

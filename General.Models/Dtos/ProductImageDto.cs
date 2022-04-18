@@ -6,7 +6,7 @@ namespace General.Models.Dtos
     {
         [Key]
         public int ProductImageID { get; set; }
-        public string ImageLink { get; set; }
-        public Product Product { get; set; }
+        public string? ImageLink { get; set; }
+        public Product? Product { get; set; }
     }
 }

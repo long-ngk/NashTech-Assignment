@@ -7,7 +7,7 @@ namespace General.Models
         [Key]
         public string CityID { get; set; }
         [Required]
-        public string CityName { get; set; }
-        public ICollection<UserAddress> UserAddresses { get; set; }
+        public string? CityName { get; set; }
+        public ICollection<UserAddress>? UserAddresses { get; set; }
     }
 }

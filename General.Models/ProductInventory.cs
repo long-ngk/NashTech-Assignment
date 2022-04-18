@@ -16,6 +16,6 @@ namespace General.Models
         public DateTime UpdatedDate { get; set; } = DateTime.Now;
         [Required]
         public bool IsActive { get; set; } = true;
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
     }
 }

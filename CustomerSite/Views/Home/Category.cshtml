@@ -39,12 +39,12 @@
                         {
                             foreach (var category in categories)
                             {
-                                <li class="category-of-product__item">
-                                    <a class="category-of-product__item__link @(categoryName == category.CategoryName ? "active" : "")"
+                                                                                <li class="category-of-product__item">
+                                                                                    <a class="category-of-product__item__link @(categoryName == category.CategoryName ? "active" : "")"
                        asp-controller="Home"
                        asp-action="Category"
                        asp-route-categoryID="@(category.CategoryID)">@category.CategoryName</a>
-                                </li>
+                                                                                </li>
                             }
                         }
                     }
@@ -59,7 +59,8 @@
                         <li class="breadcrumb-item">Category</li>
                         <li class="breadcrumb-item active"
                             aria-current="page">
-                            @(ViewData["CategoryName"].ToString())</li>
+                            @(ViewData["CategoryName"].ToString())
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -91,49 +92,49 @@
                     @if (ViewData["SearchText"] != null &&
                     ViewData["SearchText"].ToString() != "")
                     {
-                        <span>Finding by keyword: </span>
-                        <span
-                          class="search-result__keyword">@(ViewData["SearchText"].ToString())</span>
+                                    <span>Finding by keyword: </span>
+                                    <span class="search-result__keyword">@(ViewData["SearchText"].ToString())</span>
                     }
                 </h5>
             </div>
             <div class="product-by-category">
-                <div
-                     class="row row-cols-1 row-cols-md-3 g-4 product-by-category__list">
+                <div class="row row-cols-1 row-cols-md-3 g-4 product-by-category__list">
                     @foreach (var product in Model)
                     {
-                         var productDetailUrl = $"/product/{SlugGenerator.SlugGenerator.GenerateSlug(product.ProdName)}-{product.ProductID}";
-                        <div class="col">
-                            <div class="card h-100">
-                                <a class="text-decoration-none"
+                        var productDetailUrl = $"/product/{SlugGenerator.SlugGenerator.GenerateSlug(product.ProductName)}-{product.ProductID}";
+                                    <div class="col">
+                                        <div class="card h-100">
+                                            <a class="text-decoration-none"
                                href="@productDetailUrl">
-                                    <img src="@(product.ProductImages.First().ImageLink.Substring(1))"
+                                                <img src="@(product.ProductImages.First().ImageLink.Substring(1))"
                                      class="card-img-top"
                                      alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <div class="clearfix mb-3"> <span
-                                          class="float-start badge rounded-pill bg-success fs-6">@(product.Price.ToString("#,###",
+                                            </a>
+                                            <div class="card-body">
+                                                <div class="clearfix mb-3">
+                                                    <span class="float-start badge rounded-pill bg-success fs-6">
+                                            @(product.Price.ToString("#,###",
                                         CultureInfo.GetCultureInfo("vi-VN").NumberFormat))
-                                            VND</span><span class="float-end">3.5 <i
-                                           class="bi bi-star-fill"
-                                           style="color: orange"></i></span>
-                                    </div>
-                                    <h5
-                                    class="mb-4 card-title cart-title--truncated">
-                                        <a class="text-decoration-none text-reset"
-                                       href="@productDetailUrl">@(product.ProdName)
-                                        </a>
-                                    </h5>
-                                    <div
-                                     class="d-flex justify-content-between align-items-center">
-                                        <a href="#"
+                                                        VND
+                                                    </span><span class="float-end">
+                                                        3.5 <i class="bi bi-star-fill"
+                                               style="color: orange"></i>
+                                                    </span>
+                                                </div>
+                                                <h5 class="mb-4 card-title cart-title--truncated">
+                                                    <a class="text-decoration-none text-reset"
+                                       href="@productDetailUrl">
+                                            @(product.ProductName)
+                                                    </a>
+                                                </h5>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <a href="#"
                                        class="btn btn-primary">Add to cart</a>
-                                        <a href=""><i class="bi bi-heart"></i></a>
+                                                    <a href=""><i class="bi bi-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
                     }
                 </div>
             </div>

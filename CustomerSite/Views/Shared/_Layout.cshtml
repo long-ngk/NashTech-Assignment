@@ -59,14 +59,15 @@
                                     </a>
                                 </div>
                                 <div class="header__navbar-dropdown-content rounded-bottom header__navbar-dropdown-content--sm">
-                                    <ul>
+                                   @* <ul>
                                         <li>
-                                            <a href="">Login</a>
+                                            <a href="/Identity/Account/Login">Login</a>
                                         </li>
                                         <li>
-                                            <a href="">Sign Up</a>
+                                            <a href="/Identity/Account/Register">Register</a>
                                         </li>
-                                    </ul>
+                                    </ul>*@
+                                    <partial name="_LoginPartial"/>
                                 </div>
                             </li>
                             <li class="header__navbar-option mx-4">

@@ -7,7 +7,7 @@ namespace General.Models
         [Key]
         public int ProductImageID { get; set; }
         [Required]
-        public string ImageLink { get; set; }
-        public Product Product { get; set; }
+        public string? ImageLink { get; set; }
+        public Product? Product { get; set; }
     }
 }

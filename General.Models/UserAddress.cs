@@ -8,12 +8,13 @@ namespace General.Models
         [Key]
         public int UserAddressID { get; set; }
         [Required]
-        public string Address { get; set; }
+        public string? Address { get; set; }
         [Required]
-        public string MobilePhone { get; set; }
-        [ForeignKey("UserID")]
-        public User User { get; set; }
+        public string? MobilePhone { get; set; }
+        public string? UserId { get; set; }
+        [ForeignKey("UserId")]
+        public User? User { get; set; }
         [ForeignKey("CityID")]
-        public City City { get; set; }
+        public City? City { get; set; }
     }
 }
