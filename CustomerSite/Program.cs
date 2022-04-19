@@ -1,7 +1,9 @@
 using General.DataAccess;
 using General.DataAccess.Business;
 using General.Models;
+using General.Utilities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 
@@ -17,8 +19,10 @@ builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
     .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddBusinessLayer();
 var app = builder.Build();

@@ -23,7 +23,7 @@ export default function Product(props) {
 
 	useEffect(() => {
 		refreshProductList();
-	}, [products]);
+	}, []);
 
 	const setCreateModalClose = () => setCreateModalShow(false);
 	const setEditModalClose = () => setEditModalShow(false);
