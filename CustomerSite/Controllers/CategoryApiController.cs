@@ -3,12 +3,16 @@ using General.DataAccess.Business;
 using General.DataAccess.Business.Constants;
 using General.DataAccess.Business.Interfaces;
 using General.Models.Dtos;
+using General.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerSite.Controllers
 {
+    [ApiController]
     [Route("api/category")]
-    public class CategoryApiController : Controller
+    [Authorize(Roles = SD.Role_Admin)]
+    public class CategoryApiController : ControllerBase
     {
         private readonly IProductCategoryService _productCategoryService;
         public CategoryApiController(IProductCategoryService productCategoryService)
