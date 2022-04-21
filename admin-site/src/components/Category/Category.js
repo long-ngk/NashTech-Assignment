@@ -11,9 +11,15 @@ export default function Category(props) {
 	const [categoryObj, setCategoryObj] = useState({});
 
 	const { REACT_APP_BACKEND_API } = process.env;
+	let jwtToken = JSON.parse(sessionStorage.getItem("tokenInfo"));
 
+	let config = {
+		headers: {
+			Authorization: "Bearer " + jwtToken.token,
+		},
+	};
 	const refreshCategoryList = () => {
-		fetch(REACT_APP_BACKEND_API + "category")
+		fetch(REACT_APP_BACKEND_API + "category", config)
 			.then((response) => response.json())
 			.then((categories) => {
 				setCategories(categories);
@@ -22,7 +28,7 @@ export default function Category(props) {
 
 	useEffect(() => {
 		refreshCategoryList();
-	}, [categories]);
+	}, []);
 
 	const setCreateModalClose = () => setCreateModalShow(false);
 	const setEditModalClose = () => setEditModalShow(false);
@@ -33,14 +39,22 @@ export default function Category(props) {
 		) {
 			const requestOptions = {
 				method: "DELETE",
-				header: { "Content-Type": "application/json" },
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: "Bearer " + jwtToken.token,
+				},
 			};
 			fetch(
 				REACT_APP_BACKEND_API + "category/" + categoryID,
 				requestOptions
-			);
+			)
+				.then((res) => refreshCategoryList())
+				.catch((e) => console.log(e));
+			// alert("Deleted successfully!!");
+			// refreshCategoryList();
 		}
 	};
+
 	return (
 		<React.Fragment>
 			<Table className="mt-4" striped bordered hover size="sm">
@@ -86,6 +100,7 @@ export default function Category(props) {
 										show={editModalShow}
 										onHide={setEditModalClose}
 										category={categoryObj}
+										token={jwtToken.token}
 									/>
 								</ButtonToolbar>
 							</td>
@@ -105,6 +120,8 @@ export default function Category(props) {
 				<CreateCategoryModal
 					show={createModalShow}
 					onHide={setCreateModalClose}
+					token={jwtToken.token}
+					refreshCategoryList={refreshCategoryList}
 				/>
 			</ButtonToolbar>
 		</React.Fragment>

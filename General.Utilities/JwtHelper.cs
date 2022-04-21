@@ -14,7 +14,7 @@ namespace General.Utilities
     {
 
         public static JwtSecurityToken GetJwtToken(
-            string username,
+            string email,
             string signingKey,
             string issuer,
             string audience,
@@ -23,7 +23,7 @@ namespace General.Utilities
         {
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub,username),
+                new Claim(JwtRegisteredClaimNames.Sub,email),
             // this guarantees the token is unique
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };

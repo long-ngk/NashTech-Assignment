@@ -11,6 +11,7 @@ export default function EditCategoryModal(props) {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
+				authorization: "Bearer " + props.token,
 			},
 			body: JSON.stringify({
 				CategoryID: event.target.CategoryID.value,

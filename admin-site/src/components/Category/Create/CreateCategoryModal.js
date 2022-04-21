@@ -1,7 +1,12 @@
 import React from "react";
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 
-export default function CreateCategoryModal(props) {
+export default function CreateCategoryModal({
+	show,
+	onHide,
+	token,
+	refreshCategoryList,
+}) {
 	const { REACT_APP_BACKEND_API } = process.env;
 
 	const handleSubmit = (event) => {
@@ -10,6 +15,7 @@ export default function CreateCategoryModal(props) {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
 			},
 			body: JSON.stringify({
 				CategoryName: event.target.CategoryName.value,
@@ -19,13 +25,14 @@ export default function CreateCategoryModal(props) {
 			.then((response) => response.json())
 			.then(() => {
 				alert("Created successfully!!");
+				refreshCategoryList();
 			})
 			.catch(() => alert("Failed to create category"));
 	};
 
 	return (
 		<>
-			<Modal {...props}>
+			<Modal show={show} onHide={onHide}>
 				<Modal.Header>
 					<Modal.Title>Add Category</Modal.Title>
 				</Modal.Header>
@@ -63,7 +70,7 @@ export default function CreateCategoryModal(props) {
 										className="mt-2"
 										variant="primary"
 										type="submit"
-										onClick={props.onHide}
+										onClick={onHide}
 									>
 										Add Category
 									</Button>
@@ -73,7 +80,7 @@ export default function CreateCategoryModal(props) {
 					</Row>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="danger" onClick={props.onHide}>
+					<Button variant="danger" onClick={onHide}>
 						Close
 					</Button>
 				</Modal.Footer>

@@ -15,9 +15,11 @@ namespace CustomerSite.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
-        public AuthController(UserManager<User> userManager, IConfiguration configuration)
+        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, IConfiguration configuration)
         {
+            _signInManager = signInManager;
             _userManager = userManager;
             _configuration = configuration;
         }
@@ -28,13 +30,17 @@ namespace CustomerSite.Controllers
         {
             // My application logic to validate the user
             // returns a user entity with Roles collection
-            var user = await _userManager.FindByNameAsync(loginUser.UserName);
+            var user = await _userManager.FindByEmailAsync(loginUser.Email);
+            var result = await _signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, false);
+            if (!result.Succeeded)
+                return NotFound("Invalid email or password!");
+
             var roles = await _userManager.GetRolesAsync(user);
-            if (user == null)
-                return BadRequest("Invalid email and password or user is not admin");
+            if (!roles.Contains(SD.Role_Admin))
+                return NotFound("User is not admin!");
 
             var claims = new List<Claim>();
-            claims.Add(new Claim("username", loginUser.UserName));
+            claims.Add(new Claim("email", loginUser.Email));
 
             // Add roles as multiple claims
             foreach (var role in roles)
@@ -45,7 +51,7 @@ namespace CustomerSite.Controllers
             // create a new token with token helper and add our claim
             // from `Westwind.AspNetCore`  NuGet Package
             var token = JwtHelper.GetJwtToken(
-                loginUser.UserName,
+                loginUser.Email,
                 _configuration["JWT:Key"],
                 _configuration["JWT:Issuer"],
                 _configuration["JWT:Audience"],
