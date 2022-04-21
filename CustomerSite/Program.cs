@@ -2,7 +2,9 @@ using General.DataAccess;
 using General.DataAccess.Business;
 using General.Models;
 using General.Utilities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -30,8 +32,13 @@ builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.Requi
 // Configure Authentication
 builder.Services.AddAuthentication(auth =>
 {
-    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    // auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.SlidingExpiration = true;
 })
 .AddJwtBearer(options =>
 {
@@ -45,6 +52,12 @@ builder.Services.AddAuthentication(auth =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]))
     };
+});
+builder.Services.AddAuthorization(options =>
+{
+    var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(CookieAuthenticationDefaults.AuthenticationScheme, JwtBearerDefaults.AuthenticationScheme);
+    defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+    options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
 });
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddTransient<JwtHelper>();

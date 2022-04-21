@@ -1,7 +1,13 @@
 import React from "react";
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 
-export default function EditCategoryModal(props) {
+export default function EditCategoryModal({
+	show,
+	onHide,
+	token,
+	refreshCategoryList,
+	category,
+}) {
 	const { REACT_APP_BACKEND_API } = process.env;
 
 	const handleSubmit = (event) => {
@@ -11,19 +17,22 @@ export default function EditCategoryModal(props) {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
-				authorization: "Bearer " + props.token,
+				authorization: "Bearer " + token,
 			},
 			body: JSON.stringify({
 				CategoryID: event.target.CategoryID.value,
 				CategoryName: event.target.CategoryName.value,
 				Description: event.target.Description.value,
-				CreatedDate: props.category.CreatedDate,
+				CreatedDate: category.CreatedDate,
 			}),
 		};
 
 		fetch(REACT_APP_BACKEND_API + "category", requestOptions)
 			.then((response) => response.text())
-			.then(() => alert("Edited successfully!!"))
+			.then(() => {
+				alert("Edited successfully!!");
+				refreshCategoryList();
+			})
 			.catch((error) => {
 				alert("Failed to edit category");
 				console.error(error);
@@ -32,7 +41,7 @@ export default function EditCategoryModal(props) {
 
 	return (
 		<>
-			<Modal {...props}>
+			<Modal show={show} onHide={onHide}>
 				<Modal.Header>
 					<Modal.Title>Add Category</Modal.Title>
 				</Modal.Header>
@@ -49,7 +58,7 @@ export default function EditCategoryModal(props) {
 										type="text"
 										name="CategoryID"
 										disabled
-										defaultValue={props.category.CategoryID}
+										defaultValue={category.CategoryID}
 									></Form.Control>
 								</Form.Group>
 								<Form.Group
@@ -62,9 +71,7 @@ export default function EditCategoryModal(props) {
 										name="CategoryName"
 										required
 										placeholder="Category Name"
-										defaultValue={
-											props.category.CategoryName
-										}
+										defaultValue={category.CategoryName}
 									></Form.Control>
 								</Form.Group>
 								<Form.Group
@@ -78,9 +85,7 @@ export default function EditCategoryModal(props) {
 										name="Description"
 										required
 										placeholder="Description"
-										defaultValue={
-											props.category.Description
-										}
+										defaultValue={category.Description}
 									></Form.Control>
 								</Form.Group>
 								<Form.Group>
@@ -88,7 +93,7 @@ export default function EditCategoryModal(props) {
 										className="mt-2"
 										variant="primary"
 										type="submit"
-										onClick={props.onHide}
+										onClick={onHide}
 									>
 										Update Category
 									</Button>
@@ -98,7 +103,7 @@ export default function EditCategoryModal(props) {
 					</Row>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="danger" onClick={props.onHide}>
+					<Button variant="danger" onClick={onHide}>
 						Close
 					</Button>
 				</Modal.Footer>

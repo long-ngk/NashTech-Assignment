@@ -96,16 +96,17 @@ export default function Category(props) {
 									>
 										Delete
 									</Button>
-									<EditCategoryModal
-										show={editModalShow}
-										onHide={setEditModalClose}
-										category={categoryObj}
-										token={jwtToken.token}
-									/>
 								</ButtonToolbar>
 							</td>
 						</tr>
 					))}
+					<EditCategoryModal
+						show={editModalShow}
+						onHide={setEditModalClose}
+						category={categoryObj}
+						token={jwtToken.token}
+						refreshCategoryList={refreshCategoryList}
+					/>
 				</tbody>
 			</Table>
 
